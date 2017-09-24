@@ -124,30 +124,32 @@ function justgiving_civicrm_alterSettingsFolders(&$metaDataFolders = NULL) {
   _justgiving_civix_civicrm_alterSettingsFolders($metaDataFolders);
 }
 
-// --- Functions below this ship commented out. Uncomment as required. ---
-
-/**
- * Implements hook_civicrm_preProcess().
- *
- * @link http://wiki.civicrm.org/confluence/display/CRMDOC/hook_civicrm_preProcess
- *
-function justgiving_civicrm_preProcess($formName, &$form) {
-
-} // */
-
 /**
  * Implements hook_civicrm_navigationMenu().
  *
  * @link http://wiki.civicrm.org/confluence/display/CRMDOC/hook_civicrm_navigationMenu
  *
+ */
 function justgiving_civicrm_navigationMenu(&$menu) {
-  _justgiving_civix_insert_navigation_menu($menu, NULL, array(
-    'label' => E::ts('The Page'),
-    'name' => 'the_page',
-    'url' => 'civicrm/the-page',
-    'permission' => 'access CiviReport,access CiviContribute',
-    'operator' => 'OR',
-    'separator' => 0,
-  ));
+  $item[] =  array (
+    'label' => CRM_Justgiving_Settings::TITLE,
+    'name'       => E::SHORT_NAME,
+    'url'        => NULL,
+    'permission' => 'administer CiviCRM',
+    'operator'   => NULL,
+    'separator'  => NULL,
+  );
+  _smartdebit_civix_insert_navigation_menu($menu, 'Administer', $item[0]);
+
+  $item[] = array (
+    'label'      => ts('Settings'),
+    'name'       => E::SHORT_NAME . '_settings',
+    'url'        => 'civicrm/justgiving/settings',
+    'permission' => 'administer CiviCRM',
+    'operator'   => NULL,
+    'separator'  => NULL,
+  );
+  _smartdebit_civix_insert_navigation_menu($menu, 'Administer/' . E::SHORT_NAME, $item[1]);
+
   _justgiving_civix_navigationMenu($menu);
-} // */
+}
