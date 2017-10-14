@@ -2,36 +2,59 @@
 
 class CRM_Justgiving_Client {
 
-  private $_justGiving; // JustGivingClient object
+  private $_liveClient; // JustGivingClient object
+  private $_testClient; // JustGivingClient object
+
+  /**
+   * We only need one instance of this object. So we use the singleton
+   * pattern and cache the instance in this variable
+   *
+   * @var object
+   */
+  static private $_singleton = NULL;
 
   /**
    * CRM_Justgiving_Base constructor.
    *
    * @param bool $test
    */
-  /**
-   * CRM_Justgiving_Base constructor.
-   *
-   * @param bool $test
-   * @return \JustGivingClient
-   */
-  public function __construct($test = FALSE) {
-    if ($test) {
-      $apiUrl = CRM_Justgiving_Settings::getValue('testapiurl');
-    }
-    else {
-      $apiUrl = CRM_Justgiving_Settings::getValue('apiurl');
-    }
+  public function __construct() {
+    $apiUrl = CRM_Justgiving_Settings::getValue('testapiurl');
 
-    $this->_justGiving = new JustGivingClient($apiUrl,
+
+    $this->_testClient = new JustGivingClient($apiUrl,
       CRM_Justgiving_Settings::getValue('apikey'),
       1,
       CRM_Justgiving_Settings::getValue('username'),
       CRM_Justgiving_Settings::getValue('password')
     );
+
+    $apiUrl = CRM_Justgiving_Settings::getValue('apiurl');
+    $this->_liveClient = new JustGivingClient($apiUrl,
+      CRM_Justgiving_Settings::getValue('apikey'),
+      1,
+      CRM_Justgiving_Settings::getValue('username'),
+      CRM_Justgiving_Settings::getValue('password')
+    );
+
   }
 
-  public function client() {
-    return $this->_justGiving;
+  /**
+   * Singleton function used to manage this object.
+   *
+   * @return CRM_Justgiving_Client
+   */
+  public static function &singleton() {
+    if (self::$_singleton === NULL) {
+      self::$_singleton = new CRM_Justgiving_Client();
+    }
+    return self::$_singleton;
+  }
+
+  public function client($isTest = FALSE) {
+    if ($isTest) {
+      return $this->_testClient;
+    }
+    return $this->_liveClient;
   }
 }

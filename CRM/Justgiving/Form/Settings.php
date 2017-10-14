@@ -12,22 +12,22 @@ class CRM_Justgiving_Form_Settings extends CRM_Core_Form {
   function buildQuickForm() {
     parent::buildQuickForm();
 
-    $justGiving = new JustGivingClient(CRM_Justgiving_Settings::getValue('testapiurl'),
-      CRM_Justgiving_Settings::getValue('apikey'),
-      1,
-      CRM_Justgiving_Settings::getValue('username'),
-      CRM_Justgiving_Settings::getValue('password')
-    );
+    // Test API credentials
+    $testApiStatus = FALSE;
+    $apiStatus = FALSE;
 
-    $response = $justGiving->Account->AccountDetailsV2();
+    $response = CRM_Justgiving_BAO_FundraisingPage::suggestPageName('test', TRUE);
+    if (!empty($response['names']) && count ($response['names'] > 0)) {
+      $testApiStatus = TRUE;
+    }
+    $this->assign('testApiStatus', $testApiStatus);
 
+    $response = CRM_Justgiving_BAO_FundraisingPage::suggestPageName('test', FALSE);
+    if (!empty($response['names']) && count ($response['names'] > 0)) {
+      $apiStatus = TRUE;
+    }
+    $this->assign('apiStatus', $apiStatus);
 
-
-    $httpStatus = new Lukasoppermann\Httpstatus\Httpstatus();
-    $status['code'] = $response->httpStatusCode;
-    $status['body'] = $response->bodyResponse;
-    $status['reason'] = $httpStatus->getReasonPhrase($status['code']);
-    $this->assign('apiStatus', $status);
 
     CRM_Utils_System::setTitle(CRM_Justgiving_Settings::TITLE . ' - ' . E::ts('Settings'));
 

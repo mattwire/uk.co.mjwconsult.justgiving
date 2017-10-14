@@ -27,21 +27,17 @@
     {include file="CRM/common/formButtons.tpl" location="top"}
   </div>
 
-  {if $apiStatus}
-    <h3>JustGiving API Status</h3>
-    <table class="form-layout-compressed">
-      <tbody>
-        <tr><td>
-          <label>Response</label>
-          {$apiStatus.code} {$apiStatus.reason}&nbsp;
-        </td></tr>
-        <tr><td>
-          <label>Body</label>
-          {$apiStatus.body}
-        </td></tr>
-      </tbody>
-    </table>
+  <h3>JustGiving API Status</h3>
+  {if $apiStatus}<div style="color: green">OK</div>
+  {else}<div style="color: red">ERROR</div>
   {/if}
+  <div class="clear">&nbsp;</div>
+
+  <h3>JustGiving Test API Status</h3>
+  {if $testApiStatus}<div style="color: green">OK</div>
+  {else}<div style="color: red">ERROR</div>
+  {/if}
+  <div class="clear">&nbsp;</div>
 
   <h3>Configuration</h3>
   <table class="form-layout-compressed"><tbody>

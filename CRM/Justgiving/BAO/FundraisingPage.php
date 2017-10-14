@@ -33,17 +33,55 @@
  */
 class CRM_Justgiving_BAO_FundraisingPage extends CRM_Justgiving_DAO_FundraisingPage {
 
-  public static function suggestPageName($preferredName) {
+  public static function suggestPageName($preferredName, $isTest = FALSE) {
     if (empty($preferredName)) {
       return FALSE;
     }
 
-    $justgiving = new CRM_Justgiving_Client(TRUE);
-    $jgClient = $justgiving->client();
+
+    $jgClient = CRM_Justgiving_Client::singleton()->client($isTest);
 
     if ($jgClient) {
-      $names = $jgClient->Page->SuggestPageShortNames('fred');
+      $names = $jgClient->Page->SuggestPageShortNames($preferredName);
       return array('names' => $names->Names);
     }
+  }
+
+  public static function create($params, $isTest = FALSE) {
+    $jgClient = CRM_Justgiving_Client::singleton()->client($isTest);
+    $jgClient->Page->ListAll();
+
+  }
+
+  public static function cancelPage($pageShortName, $isTest = FALSE) {
+    $jgClient = CRM_Justgiving_Client::singleton()->client($isTest);
+    $result = $jgClient->Page->Cancel($pageShortName);
+    switch ($result['http_code']) {
+      case 200:
+        $return['message'] = 'Fundraising page removed';
+        $return['is_error'] = 0;
+        break;
+      case 401:
+        $return['message'] = 'User attempting to delete a page they dont own';
+        $return['is_error'] = 1;
+        break;
+      case 404:
+        $return['message'] = 'Fundraising page not found';
+        $return['is_error'] = 1;
+        break;
+      default:
+        $return['message'] = 'Unknown Error';
+        $return['is_error'] = 1;
+    }
+    return $return;
+  }
+
+  public static function getAll($isTest = FALSE) {
+    $jgClient = CRM_Justgiving_Client::singleton()->client($isTest);
+    $pages = $jgClient->Page->ListAll();
+    if (empty($pages)) {
+      return array();
+    }
+    return $pages;
   }
 }
