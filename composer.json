@@ -1,0 +1,11 @@
+{
+  "autoload": {
+    "classmap": [
+      "src/JustGivingPHP/JustGivingClient.php",
+      "src/JustGivingPHP/ApiClients/Model"
+    ]
+  },
+  "require": {
+    "lukasoppermann/http-status": "^2.0"
+  }
+}

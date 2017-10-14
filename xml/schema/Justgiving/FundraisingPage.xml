@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="iso-8859-1" ?>
+
+<table>
+  <base>CRM/Justgiving</base>
+  <class>FundraisingPage</class>
+  <name>civicrm_justgiving_fundraising_page</name>
+  <comment>Justgiving Fundraising Page</comment>
+  <add>4.7</add>
+  <log>true</log>
+
+  <field>
+    <name>id</name>
+    <type>int unsigned</type>
+    <required>true</required>
+    <comment>Unique CiviCRM FundraisingPage ID (Mapped to reference)</comment>
+    <add>4.7</add>
+  </field>
+  <primaryKey>
+    <name>id</name>
+    <autoincrement>true</autoincrement>
+  </primaryKey>
+
+  <field>
+    <name>charity_id</name>
+    <title>Charity ID</title>
+    <type>int unsigned</type>
+    <comment>The charityId argument specifies the charity to create the fundraising page for. (Required)</comment>
+    <add>4.7</add>
+  </field>
+
+  <field>
+    <name>event_id</name>
+    <title>Event ID</title>
+    <type>int unsigned</type>
+    <comment>The eventId argument specifies the event to create the fundraising page for. This argument must be omitted if an activityType is specified.</comment>
+    <add>4.7</add>
+  </field>
+
+  <field>
+    <name>page_short_name</name>
+    <title>Page Short Name</title>
+    <type>varchar</type>
+    <length>50</length>
+    <comment>The pageShortName argument specifies the url you want to assign the new fundraising page. If the short url is available your page will be available at http://www.justgiving.com/{pageShortName} once it is created. (Required)</comment>
+    <add>4.7</add>
+  </field>
+
+  <field>
+    <name>page_title</name>
+    <title>Page Title</title>
+    <type>varchar</type>
+    <length>255</length>
+    <comment>The pageTitle argument allows you to provide a title for the page. (Required)</comment>
+    <add>4.7</add>
+  </field>
+
+  <field>
+    <name>activity_type</name>
+    <title>Activity Type</title>
+    <type>varchar</type>
+    <length>50</length>
+    <comment>The activityType argument specifies the type of activity the page is for. This argument must be omitted if an eventId is specified. ActivityTypes: Birthday Wedding OtherCelebration InMemory</comment>
+    <add>4.7</add>
+  </field>
+
+  <field>
+    <name>target_amount</name>
+    <title>Target Amount</title>
+    <type>varchar</type>
+    <length>50</length>
+    <comment>The targetAmount argument allows you to specify a target amount to raise. (Optional)</comment>
+    <add>4.7</add>
+  </field>
+
+  <field>
+    <name>charity_opt_in</name>
+    <title>Charity Opt-in</title>
+    <type>tinyint</type>
+    <length>1</length>
+    <comment>The charityOptIn argument allows you to indicate whether the user wishes to opt in to receive communications from the charity the fundraising page is for. (Required)</comment>
+    <add>4.7</add>
+  </field>
+
+  <field>
+    <name>event_date</name>
+    <title>Event Date</title>
+    <type>timestamp</type>
+    <comment>The eventDate argument allows you to specify when the event will take place. Required for event activity types (i.e: Birthday, Wedding, OtherCelebration, InMemory).</comment>
+    <add>4.7</add>
+  </field>
+
+  <field>
+    <name>event_date</name>
+    <title>Event Date</title>
+    <type>timestamp</type>
+    <comment>The eventDate argument allows you to specify when the event will take place. Required for event activity types (i.e: Birthday, Wedding, OtherCelebration, InMemory).</comment>
+    <add>4.7</add>
+  </field>
+
+  <field>
+    <name>event_name</name>
+    <title>Event Name</title>
+    <type>varchar</type>
+    <length>50</length>
+    <comment>The eventName argument allows you to specify a name for the event. Required for event activity types (i.e: Birthday, Wedding, OtherCelebration, InMemory).</comment>
+    <add>4.7</add>
+  </field>
+
+  <field>
+    <name>event_name</name>
+    <title>Event Name</title>
+    <type>varchar</type>
+    <length>50</length>
+    <comment>The eventName argument allows you to specify a name for the event. Required for event activity types (i.e: Birthday, Wedding, OtherCelebration, InMemory).</comment>
+    <add>4.7</add>
+  </field>
+
+  <field>
+    <name>attribution</name>
+    <title>Attribution</title>
+    <type>varchar</type>
+    <length>255</length>
+    <comment>The attribution argument allows you to specify who the fundraising page is attributed to. Required for occasion, organised event and in-memory activity types (i.e: all except Birthday, Wedding).</comment>
+    <add>4.7</add>
+  </field>
+
+  <field>
+    <name>charity_funded</name>
+    <title>Charity Funded</title>
+    <type>tinyint</type>
+    <length>1</length>
+    <comment>The charityFunded argument specifies whether the charity is contributing in some way to the fundraising, which can affect Gift Aid. For more information about how Gift Aid works http://bit.ly/cZfY1R (Required)</comment>
+    <add>4.7</add>
+  </field>
+
+  <field>
+    <name>cause_id</name>
+    <title>Cause ID</title>
+    <type>int unsigned</type>
+    <comment>The causeId argument specifies the cause you are creating a fundraising page for. (Optional)</comment>
+    <add>4.7</add>
+  </field>
+
+  <field>
+    <name>company_appeal_id</name>
+    <title>Company Appeal ID</title>
+    <type>int unsigned</type>
+    <comment>The companyAppealId argument specifies the company appeal you are creating a fundraising page for. (Optional)</comment>
+    <add>4.7</add>
+  </field>
+
+  <field>
+    <name>expiry_date</name>
+    <title>Expiry Date</title>
+    <type>timestamp</type>
+    <comment>The date the page should expire. This is ignored if you are creating a fundraising page for a pre-defined event.</comment>
+    <add>4.7</add>
+  </field>
+
+  <field>
+    <name>page_story</name>
+    <title>pageStory</title>
+    <type>varchar</type>
+    <length>255</length>
+    <comment>The Page Story.</comment>
+    <add>4.7</add>
+  </field>
+
+  <field>
+    <name>page_summary_what</name>
+    <title>pageSummaryWhat</title>
+    <type>varchar</type>
+    <length>50</length>
+    <comment>The 'I'm doing action X' part of the fundraising page summary. (Optional). 50 characters max.</comment>
+    <add>4.7</add>
+  </field>
+
+  <field>
+    <name>page_summary_why</name>
+    <title>pageSummaryWhy</title>
+    <type>varchar</type>
+    <length>50</length>
+    <comment>The 'reason Z' part of the fundraising page summary. (Optional). 50 characters max.</comment>
+    <add>4.7</add>
+  </field>
+
+  <field>
+    <name>team_id</name>
+    <title>teamId</title>
+    <type>int unsigned</type>
+    <comment>The teamId argument specifies the team to which the fundraising page will be associated with.</comment>
+    <add>4.7</add>
+  </field>
+
+  <field>
+    <name>currency</name>
+    <title>currency</title>
+    <type>varchar</type>
+    <length>4</length>
+    <default>'GBP'</default>
+    <comment>Must be a valid ISO currency code. Will default to GBP if omitted. For a list of valid codes, use the Currency API.</comment>
+    <add>4.7</add>
+  </field>
+
+<!--
+  FIXME: Required, data types/length correct?
+  NOT IMPLEMENTED:
+  CustomCodes.*
+  Theme.*
+  images.*
+  videos.*
+  RememberedPersonReference.*
+-->
+
+</table>

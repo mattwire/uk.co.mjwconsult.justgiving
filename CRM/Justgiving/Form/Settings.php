@@ -14,10 +14,20 @@ class CRM_Justgiving_Form_Settings extends CRM_Core_Form {
 
     $justGiving = new JustGivingClient(CRM_Justgiving_Settings::getValue('testapiurl'),
       CRM_Justgiving_Settings::getValue('apikey'),
-      1, CRM_Justgiving_Settings::getValue('username'),
+      1,
+      CRM_Justgiving_Settings::getValue('username'),
       CRM_Justgiving_Settings::getValue('password')
     );
-    $justGiving->Account->AccountDetailsV2();
+
+    $response = $justGiving->Account->AccountDetailsV2();
+
+
+
+    $httpStatus = new Lukasoppermann\Httpstatus\Httpstatus();
+    $status['code'] = $response->httpStatusCode;
+    $status['body'] = $response->bodyResponse;
+    $status['reason'] = $httpStatus->getReasonPhrase($status['code']);
+    $this->assign('apiStatus', $status);
 
     CRM_Utils_System::setTitle(CRM_Justgiving_Settings::TITLE . ' - ' . E::ts('Settings'));
 
