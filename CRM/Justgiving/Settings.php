@@ -75,7 +75,7 @@ class CRM_Justgiving_Settings {
       foreach ($settingsResult['values'][$domainID] as $name => $value) {
         $unprefixedSettings[self::getName($name)] = $value;
       }
-      return $unprefixedSettings;
+      return empty($unprefixedSettings) ? NULL : $unprefixedSettings;
     }
     return array();
   }

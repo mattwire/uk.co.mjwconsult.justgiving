@@ -2,7 +2,7 @@
 
 require_once 'justgiving.civix.php';
 use CRM_Justgiving_ExtensionUtil as E;
-require_once E::path() . DIRECTORY_SEPARATOR . 'src' . DIRECTORY_SEPARATOR . 'JustGivingPHP' . DIRECTORY_SEPARATOR . 'JustGivingClient.php';
+require_once __DIR__.'/vendor/autoload.php';
 
 /**
  * Implements hook_civicrm_config().
@@ -139,17 +139,17 @@ function justgiving_civicrm_navigationMenu(&$menu) {
     'operator'   => NULL,
     'separator'  => NULL,
   );
-  _smartdebit_civix_insert_navigation_menu($menu, 'Administer', $item[0]);
+  _justgiving_civix_insert_navigation_menu($menu, 'Administer', $item[0]);
 
   $item[] = array (
     'label'      => ts('Settings'),
     'name'       => E::SHORT_NAME . '_settings',
-    'url'        => 'civicrm/justgiving/settings',
+    'url'        => 'civicrm/admin/justgiving',
     'permission' => 'administer CiviCRM',
     'operator'   => NULL,
     'separator'  => NULL,
   );
-  _smartdebit_civix_insert_navigation_menu($menu, 'Administer/' . E::SHORT_NAME, $item[1]);
+  _justgiving_civix_insert_navigation_menu($menu, 'Administer/' . E::SHORT_NAME, $item[1]);
 
   _justgiving_civix_navigationMenu($menu);
 }

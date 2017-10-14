@@ -70,7 +70,7 @@ return array(
     'add' => '4.7',
     'is_domain' => 1,
     'is_contact' => 0,
-    'description' => 'JustGiving API Key',
+    'description' => 'JustGiving APP ID',
     'html_attributes' => array(
       'size' => 40,
     ),

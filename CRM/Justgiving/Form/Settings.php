@@ -54,12 +54,11 @@ class CRM_Justgiving_Form_Settings extends CRM_Core_Form {
 
     // export form elements
     $this->assign('elementNames', $this->getRenderableElementNames());
-
   }
 
   function postProcess() {
     $changed = $this->_submitValues;
-    $settings = $this->getFormSettings();
+    $settings = $this->getFormSettings(FALSE);
     // Make sure we have all settings elements set (boolean settings will be unset by default and wouldn't be saved)
     $settingsToSave = array_merge($settings, array_intersect_key($changed, $settings));
     CRM_Justgiving_Settings::save($settingsToSave);
@@ -93,12 +92,17 @@ class CRM_Justgiving_Form_Settings extends CRM_Core_Form {
    *
    * @return array
    */
-  function getFormSettings() {
+  function getFormSettings($metadata=TRUE) {
     $unprefixedSettings = array();
     $settings = civicrm_api3('setting', 'getfields', array('filters' => CRM_Justgiving_Settings::getFilter()));
     if (!empty($settings['values'])) {
       foreach ($settings['values'] as $name => $values) {
-        $unprefixedSettings[CRM_Justgiving_Settings::getName($name, FALSE)] = $values;
+        if ($metadata) {
+          $unprefixedSettings[CRM_Justgiving_Settings::getName($name, FALSE)] = $values;
+        }
+        else {
+          $unprefixedSettings[CRM_Justgiving_Settings::getName($name, FALSE)] = NULL;
+        }
       }
     }
     return $unprefixedSettings;
@@ -110,11 +114,14 @@ class CRM_Justgiving_Form_Settings extends CRM_Core_Form {
    * @see CRM_Core_Form::setDefaultValues()
    */
   function setDefaultValues() {
-    $settings = $this->getFormSettings();
-    $existing = CRM_Justgiving_Settings::get($settings);
+    $settings = $this->getFormSettings(FALSE);
     $defaults = array();
-    foreach ($existing as $name => $value) {
-      $defaults[$name] = $value;
+
+    $existing = CRM_Justgiving_Settings::get($settings);
+    if ($existing) {
+      foreach ($existing as $name => $value) {
+        $defaults[$name] = $value;
+      }
     }
     return $defaults;
   }

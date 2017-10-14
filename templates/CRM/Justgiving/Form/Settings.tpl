@@ -27,14 +27,31 @@
     {include file="CRM/common/formButtons.tpl" location="top"}
   </div>
 
+  {if $apiStatus}
+    <h3>JustGiving API Status</h3>
+    <table class="form-layout-compressed">
+      <tbody>
+        <tr><td>
+          <label>Response</label>
+          {$apiStatus.code} {$apiStatus.reason}&nbsp;
+        </td></tr>
+        <tr><td>
+          <label>Body</label>
+          {$apiStatus.body}
+        </td></tr>
+      </tbody>
+    </table>
+  {/if}
+
   <h3>Configuration</h3>
-  {foreach from=$elementNames item=elementName}
-    <div class="crm-section">
-      <div class="label">{$form.$elementName.label} {help id=$elementName title=$form.$elementName.label}</div>
-      <div class="content">{$form.$elementName.html}</div>
-      <div class="clear"></div>
-    </div>
-  {/foreach}
+  <table class="form-layout-compressed"><tbody>
+    {foreach from=$elementNames item=elementName}
+      <tr><td>
+          <label for="{$elementName}">{$form.$elementName.label} {help id=$elementName title=$form.$elementName.label}</label>
+          {$form.$elementName.html}
+        </td></tr>
+    {/foreach}
+    </tbody></table>
 
   <div class="crm-submit-buttons">
     {include file="CRM/common/formButtons.tpl" location="bottom"}
