@@ -111,16 +111,16 @@ return array(
   ),
 
   //initial_completed
-  'justgiving_livemode' => array(
+  'justgiving_testmode' => array(
     'group_name' => 'JustGiving Settings',
     'group' => 'justgiving',
-    'name' => 'justgiving_livemode',
+    'name' => 'justgiving_testmode',
     'type' => 'Boolean',
     'add' => '4.7',
     'is_domain' => 1,
     'is_contact' => 0,
-    'default' => 0,
-    'description' => 'Set to True to enable Live mode (use live API URL)',
+    'default' => 1,
+    'description' => 'Set to True to enable Test mode (use test API URL)',
     'html_type' => 'Checkbox',
     'html_attributes' => array(
     ),

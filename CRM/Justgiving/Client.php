@@ -52,7 +52,8 @@ class CRM_Justgiving_Client {
     return self::$_singleton;
   }
 
-  public function client($isTest = FALSE) {
+  public function client() {
+    $isTest = CRM_Justgiving_Settings::getValue('testmode');
     if ($isTest) {
       return $this->_testClient;
     }

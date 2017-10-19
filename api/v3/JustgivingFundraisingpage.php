@@ -51,9 +51,6 @@ function _civicrm_api3_justgiving_fundraisingpage_delete_spec(&$spec) {
   $spec['page_short_name']['api.required'] = 1;
   $spec['page_short_name']['title'] = 'Page Short Name';
   $spec['page_short_name']['type'] = CRM_Utils_Type::T_STRING;
-  $spec['test']['api.required'] = 0;
-  $spec['test']['title'] = 'Is Test';
-  $spec['test']['type'] = CRM_Utils_Type::T_BOOLEAN;
   unset($spec['id']);
 }
 
@@ -95,9 +92,6 @@ function civicrm_api3_justgiving_fundraisingpage_get($params) {
  * @see http://wiki.civicrm.org/confluence/display/CRMDOC/API+Architecture+Standards
  */
 function _civicrm_api3_justgiving_fundraisingpage_get_spec(&$spec) {
-  $spec['test']['api.required'] = 0;
-  $spec['test']['title'] = 'Is Test';
-  $spec['test']['type'] = CRM_Utils_Type::T_BOOLEAN;
 }
 
 function civicrm_api3_justgiving_fundraisingpage_suggestname($params) {

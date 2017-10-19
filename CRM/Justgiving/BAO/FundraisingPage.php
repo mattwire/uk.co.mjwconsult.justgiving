@@ -33,10 +33,12 @@
  */
 class CRM_Justgiving_BAO_FundraisingPage extends CRM_Justgiving_DAO_FundraisingPage {
 
-  public static function suggestPageName($preferredName, $isTest = FALSE) {
+  public static function suggestPageName($preferredName) {
     if (empty($preferredName)) {
       return FALSE;
     }
+
+    $isTest = CRM_Justgiving_Settings::getValue('testmode');
 
     $jgClient = CRM_Justgiving_Client::singleton()->client($isTest);
 
@@ -50,7 +52,8 @@ class CRM_Justgiving_BAO_FundraisingPage extends CRM_Justgiving_DAO_FundraisingP
     }
   }
 
-  public static function create($params, $isTest = FALSE) {
+  public static function create($params) {
+    $isTest = CRM_Justgiving_Settings::getValue('testmode');
     $jgClient = CRM_Justgiving_Client::singleton()->client($isTest);
     $pageRequest = new RegisterPageRequest();
 
@@ -61,7 +64,8 @@ class CRM_Justgiving_BAO_FundraisingPage extends CRM_Justgiving_DAO_FundraisingP
   }
 
 
-  public static function cancelPage($pageShortName, $isTest = FALSE) {
+  public static function cancelPage($pageShortName) {
+    $isTest = CRM_Justgiving_Settings::getValue('testmode');
     $jgClient = CRM_Justgiving_Client::singleton()->client($isTest);
     $result = $jgClient->Page->Cancel($pageShortName);
     switch ($result['http_code']) {
@@ -84,7 +88,8 @@ class CRM_Justgiving_BAO_FundraisingPage extends CRM_Justgiving_DAO_FundraisingP
     return $return;
   }
 
-  public static function getAll($isTest = FALSE) {
+  public static function getAll() {
+    $isTest = CRM_Justgiving_Settings::getValue('testmode');
     $jgClient = CRM_Justgiving_Client::singleton()->client($isTest);
     $pages = $jgClient->Page->ListAll();
     if (empty($pages)) {
