@@ -38,20 +38,28 @@ class CRM_Justgiving_BAO_FundraisingPage extends CRM_Justgiving_DAO_FundraisingP
       return FALSE;
     }
 
-
     $jgClient = CRM_Justgiving_Client::singleton()->client($isTest);
 
     if ($jgClient) {
+      if (!$jgClient->Page->IsShortNameRegistered($preferredName)) {
+        // If page name is available don't suggest alternatives
+        return array('values' => array($preferredName));
+      }
       $names = $jgClient->Page->SuggestPageShortNames($preferredName);
-      return array('names' => $names->Names);
+      return array('values' => $names['Names']);
     }
   }
 
   public static function create($params, $isTest = FALSE) {
     $jgClient = CRM_Justgiving_Client::singleton()->client($isTest);
-    $jgClient->Page->ListAll();
+    $pageRequest = new RegisterPageRequest();
+
+//    $pageRequest->
+
+    $jgClient->Page->CreateV2();
 
   }
+
 
   public static function cancelPage($pageShortName, $isTest = FALSE) {
     $jgClient = CRM_Justgiving_Client::singleton()->client($isTest);

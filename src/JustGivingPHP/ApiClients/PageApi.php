@@ -1,4 +1,4 @@
-<?php
+<?php namespace JustGivingClient;
 
 include_once 'ClientBase.php';
 include_once 'Http/CurlWrapper.php';
@@ -34,7 +34,7 @@ class PageApi extends ClientBase
 		$url = $this->BuildUrl($locationFormat);
 		$payload = json_encode($pageCreationRequest);		
 		$json = $this->curlWrapper->Put($url, $this->BuildAuthenticationValue(), $payload);
-		return json_decode($json); 
+		return json_decode($json, TRUE);
 	}
 
 	public function IsShortNameRegisteredV2($pageShortName)
@@ -69,7 +69,7 @@ class PageApi extends ClientBase
 		$locationFormat = $this->Parent->RootDomain . "{apiKey}/v{apiVersion}/fundraising/pages";
 		$url = $this->BuildUrl($locationFormat);
 		$json = $this->curlWrapper->Get($url, $this->BuildAuthenticationValue());
-		return json_decode($json);
+		return json_decode($json, TRUE);
 	}
 	
 	public function Retrieve($pageShortName)
@@ -85,7 +85,7 @@ class PageApi extends ClientBase
 		$locationFormat = $this->Parent->RootDomain . "{apiKey}/v{apiVersion}/fundraising/pages/suggest?preferredName=" . urlencode ($preferredName);
 		$url = $this->BuildUrl($locationFormat);
 		$json = $this->curlWrapper->Get($url, $this->BuildAuthenticationValue());
-		return json_decode($json);
+		return json_decode($json, TRUE);
 	}	
 	
 	public function RetrieveDonationsForPage($pageShortName, $pageSize=50, $pageNumber=1)
@@ -93,7 +93,7 @@ class PageApi extends ClientBase
 		$locationFormat = $this->Parent->RootDomain . "{apiKey}/v{apiVersion}/fundraising/pages/".$pageShortName."/donations"."?PageSize=".$pageSize."&PageNum=".$pageNumber;
 		$url = $this->BuildUrl($locationFormat);
 		$json = $this->curlWrapper->Get($url, $this->BuildAuthenticationValue());
-		return json_decode($json);
+		return json_decode($json, TRUE);
 	}
 	
 	public function UpdateStory($pageShortName, $storyUpdate)
@@ -143,7 +143,7 @@ class PageApi extends ClientBase
 		{
 			$json = $this->curlWrapper->Get($url, $this->BuildAuthenticationValue());
 		}
-		return json_decode($json);
+		return json_decode($json, TRUE);
 	}
 
 	public function GetPageUpdates($pageShortName)
@@ -151,7 +151,7 @@ class PageApi extends ClientBase
 		$locationFormat = $this->Parent->RootDomain . "{apiKey}/v{apiVersion}/fundraising/pages/".$pageShortName."/updates/";
 		$url = $this->BuildUrl($locationFormat);
 		$json = $this->curlWrapper->Get($url);
-		return json_decode($json);
+		return json_decode($json, TRUE);
 	}
 
 	public function GetPageUpdateById($pageShortName, $updateId)
@@ -159,7 +159,7 @@ class PageApi extends ClientBase
 		$locationFormat = $this->Parent->RootDomain . "{apiKey}/v{apiVersion}/fundraising/pages/".$pageShortName."/updates/". $updateId;
 		$url = $this->BuildUrl($locationFormat);
 		$json = $this->curlWrapper->Get($url);
-		return json_decode($json);
+		return json_decode($json, TRUE);
 	}
 
 	public function AddPostToPageUpdate($pageShortName, $addPostToPageUpdateRequest)
@@ -168,7 +168,7 @@ class PageApi extends ClientBase
 		$url = $this->BuildUrl($locationFormat);
 		$payload = json_encode($addPostToPageUpdateRequest);
 		$json = $this->curlWrapper->PostAndGetResponse($url, $this->BuildAuthenticationValue(), $payload);
-		return json_decode($json);
+		return json_decode($json, TRUE);
 	}
 
 	public function DeleteFundraisingPageAttribution($pageShortName)
@@ -254,7 +254,7 @@ class PageApi extends ClientBase
 		$url = $this->BuildUrl($locationFormat);
 		$payload = json_encode($addImageRequest);
 		$json = $this->curlWrapper->Put($url, $this->BuildAuthenticationValue(), $payload);
-		return json_decode($json);
+		return json_decode($json, TRUE);
 	}
 
 	public function GetImages($pageShortName)
@@ -271,7 +271,7 @@ class PageApi extends ClientBase
 		$url = $this->BuildUrl($locationFormat);
 		$payload = json_encode($addVideoRequest);
 		$json = $this->curlWrapper->Put($url, $this->BuildAuthenticationValue(), $payload);
-		return json_decode($json);
+		return json_decode($json, TRUE);
 	}
 
 	public function GetVideos($pageShortName)
@@ -279,7 +279,7 @@ class PageApi extends ClientBase
 		$locationFormat = $this->Parent->RootDomain . "{apiKey}/v{apiVersion}/fundraising/pages/" . $pageShortName . "/videos";
 		$url = $this->BuildUrl($locationFormat);
 		$json = $this->curlWrapper->Get($url);
-		return json_decode($json);
+		return json_decode($json, TRUE);
 	}
 
 	public function Cancel($pageShortName)

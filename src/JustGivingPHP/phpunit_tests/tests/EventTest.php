@@ -1,4 +1,7 @@
 <?php
+
+namespace JustGivingClient;
+
 include_once 'Base.php';
 class EventTest extends Base {
     public function testRetrieveEvent_IssuedWithKnownId_ReturnsEvent() {

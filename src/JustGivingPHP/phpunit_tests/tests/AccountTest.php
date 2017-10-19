@@ -1,4 +1,7 @@
 <?php
+
+namespace JustGivingClient;
+
 include_once 'Base.php';
 class AccountTest extends Base {
     public function testCreate_WhenSuppliedWithValidNewAccountDetails_CreatesAccount() {

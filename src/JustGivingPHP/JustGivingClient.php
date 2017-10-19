@@ -1,4 +1,4 @@
-<?php
+<?php namespace JustGivingClient;
 
 include_once 'ApiClients/PageApi.php';
 include_once 'ApiClients/AccountApi.php';

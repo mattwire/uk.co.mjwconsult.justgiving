@@ -1,4 +1,7 @@
 <?php
+
+namespace JustGivingClient;
+
 include_once "../JustGivingClient.php";
 include_once "../ApiClients/Model/AddPostToPageUpdateRequest.php";
 include_once '../ApiClients/Model/CreateAccountRequest.php';

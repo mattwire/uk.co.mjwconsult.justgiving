@@ -1,5 +1,6 @@
 <?php
 
+use JustGivingClient as J;
 /**
  * JustGiving FundraisingPage.create API specification (optional)
  * This is used for documentation and validation.
@@ -9,7 +10,21 @@
  * @see http://wiki.civicrm.org/confluence/display/CRMDOC/API+Architecture+Standards
  */
 function _civicrm_api3_justgiving_fundraisingpage_create_spec(&$spec) {
-
+  $spec['charity_id']['api.required'] = 1;
+  $spec['charity_id']['title'] = 'Charity ID';
+  $spec['charity_id']['type'] = CRM_Utils_Type::T_INT;
+  $spec['event_id']['api.required'] = 1;
+  $spec['event_id']['title'] = 'Event ID';
+  $spec['event_id']['type'] = CRM_Utils_Type::T_INT;
+  $spec['page_short_name']['api.required'] = 1;
+  $spec['page_short_name']['title'] = 'Page Short Name';
+  $spec['page_short_name']['type'] = CRM_Utils_Type::T_STRING;
+  $spec['page_title']['api.required'] = 1;
+  $spec['page_title']['title'] = 'Page Title';
+  $spec['page_title']['type'] = CRM_Utils_Type::T_STRING;
+  $spec['charity_opt_in']['api.required'] = 1;
+  $spec['charity_opt_in']['title'] = 'Charity Opt In';
+  $spec['charity_opt_in']['type'] = CRM_Utils_Type::T_BOOLEAN;
 }
 
 /**
@@ -20,12 +35,16 @@ function _civicrm_api3_justgiving_fundraisingpage_create_spec(&$spec) {
  * @throws API_Exception
  */
 function civicrm_api3_justgiving_fundraisingpage_create($params) {
-  if (!array_key_exists('id', $params)) {
-    civicrm_api3_verify_mandatory($params, NULL, array(
-      'name',
-    ));
-  }
-  return _civicrm_api3_basic_create('CRM_Justgiving_BAO_Fundraisingpage', $params);
+  $page = new J\RegisterPageRequest();
+  $page->charityId = $params['charity_id'];
+  $page->eventId = $params['event_id'];
+  $page->pageShortName = $params['page_short_name'];
+  $page->pageTitle = $params['page_title'];
+  $page->charityOptIn = $params['charity_opt_in'];
+
+  $jgClient = new CRM_Justgiving_Client();
+  $pageResult = $jgClient->client(TRUE)->Page->CreateV2($page);
+  return $pageResult;
 }
 
 function _civicrm_api3_justgiving_fundraisingpage_delete_spec(&$spec) {
@@ -83,9 +102,9 @@ function _civicrm_api3_justgiving_fundraisingpage_get_spec(&$spec) {
 
 function civicrm_api3_justgiving_fundraisingpage_suggestname($params) {
   $result = CRM_Justgiving_BAO_FundraisingPage::suggestPageName($params['preferred_name']);
-  if (!empty($result['names'])) {
+  if (!empty($result['values'])) {
     $result['is_error'] = 0;
-    $result['count'] = count($result['names']);
+    $result['count'] = count($result['values']);
   }
   return $result;
 }

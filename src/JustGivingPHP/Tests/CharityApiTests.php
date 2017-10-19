@@ -1,4 +1,5 @@
-<?php
+<?php namespace JustGivingClient;
+
 include_once '../ApiClients/Model/CreateAccountRequest.php';
 include_once '../ApiClients/Model/AuthenticateCharityAccountRequest.php';
 

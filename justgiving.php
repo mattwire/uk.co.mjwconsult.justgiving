@@ -4,6 +4,8 @@ require_once 'justgiving.civix.php';
 use CRM_Justgiving_ExtensionUtil as E;
 require_once __DIR__.'/vendor/autoload.php';
 
+use JustGivingClient as J;
+
 /**
  * Implements hook_civicrm_config().
  *

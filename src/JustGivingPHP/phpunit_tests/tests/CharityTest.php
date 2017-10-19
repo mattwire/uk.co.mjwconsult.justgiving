@@ -1,4 +1,7 @@
 <?php
+
+namespace JustGivingClient;
+
 include_once 'Base.php';
 class CharityTest extends Base {
     public function testRetrieve_WhenSuppliedWithValidCharityId_RetrievesCharity() {

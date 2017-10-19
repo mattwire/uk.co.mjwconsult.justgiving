@@ -1,4 +1,5 @@
-<?php
+<?php namespace JustGivingClient;
+
 class EventApiTests
 {
 	function RetrieveEvent_IssuedWithKnownId_ReturnsEvent($client)

@@ -1,4 +1,5 @@
-<?php
+<?php namespace JustGivingClient;
+
 class SearchApiTests
 {
 	function CharitySearch_KeywordWithKnownResults_SearchResultsPresent($client)

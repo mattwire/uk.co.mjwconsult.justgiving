@@ -1,4 +1,7 @@
 <?php
+
+namespace JustGivingClient;
+
 include_once 'Base.php';
 class CountriesTest extends Base {
     public function testGetCountries_ReturnCountries() {

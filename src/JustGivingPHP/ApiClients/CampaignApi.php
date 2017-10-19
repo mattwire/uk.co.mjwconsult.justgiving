@@ -1,4 +1,4 @@
-<?php
+<?php namespace JustGivingClient;
 
 include_once 'ClientBase.php';
 include_once 'Http/CurlWrapper.php';

@@ -1,4 +1,7 @@
 <?php
+
+namespace JustGivingClient;
+
 include_once 'Base.php';
 class DonationTest extends Base {
     public function testRetrieve_WhenSuppliedWithKnownExistingDonationId_ReturnsDonation() {

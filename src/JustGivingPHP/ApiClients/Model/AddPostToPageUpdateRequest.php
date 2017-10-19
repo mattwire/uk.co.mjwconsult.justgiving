@@ -1,5 +1,4 @@
-<?php
-
+v
 class AddPostToPageUpdateRequest
 {
 	public $CreatedDate;

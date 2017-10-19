@@ -1,4 +1,7 @@
 <?php
+
+namespace JustGivingClient;
+
 include_once 'Base.php';
 class LeaderboardTest extends Base {
     public function testGetCharityLeaderboard_WhenSuppliedWithValidCharityId_ReturnHttpStatusCode_200() {

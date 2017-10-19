@@ -1,5 +1,7 @@
 <?php
 
+use JustGivingClient as J;
+
 class CRM_Justgiving_Client {
 
   private $_liveClient; // JustGivingClient object
@@ -21,8 +23,7 @@ class CRM_Justgiving_Client {
   public function __construct() {
     $apiUrl = CRM_Justgiving_Settings::getValue('testapiurl');
 
-
-    $this->_testClient = new JustGivingClient($apiUrl,
+    $this->_testClient = new J\JustGivingClient($apiUrl,
       CRM_Justgiving_Settings::getValue('apikey'),
       1,
       CRM_Justgiving_Settings::getValue('username'),
@@ -30,7 +31,7 @@ class CRM_Justgiving_Client {
     );
 
     $apiUrl = CRM_Justgiving_Settings::getValue('apiurl');
-    $this->_liveClient = new JustGivingClient($apiUrl,
+    $this->_liveClient = new J\JustGivingClient($apiUrl,
       CRM_Justgiving_Settings::getValue('apikey'),
       1,
       CRM_Justgiving_Settings::getValue('username'),

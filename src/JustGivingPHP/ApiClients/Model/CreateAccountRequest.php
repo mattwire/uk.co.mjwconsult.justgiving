@@ -1,4 +1,5 @@
-<?php
+<?php namespace JustGivingClient;
+
 include_once 'Address.php';
 
 class CreateAccountRequest

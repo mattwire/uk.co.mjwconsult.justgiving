@@ -1,4 +1,7 @@
 <?php
+
+namespace JustGivingClient;
+
 include_once 'Base.php';
 class PageTest extends Base {
     public function testRetrieve_WhenSuppliedWithValidPage_ReturnsPageData() {

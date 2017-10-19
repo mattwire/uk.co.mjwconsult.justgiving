@@ -1,4 +1,5 @@
-<?php
+<?php namespace JustGivingClient;
+
 class Address
 {
 	public $line1;

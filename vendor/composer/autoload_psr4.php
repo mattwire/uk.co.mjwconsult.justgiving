@@ -7,4 +7,5 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'Lukasoppermann\\Httpstatus\\' => array($vendorDir . '/lukasoppermann/http-status/src'),
+    'JustGivingClient\\' => array($baseDir . '/src/JustGivingPHP', $baseDir . '/src/JustGivingPHP/ApiClients/Model'),
 );

@@ -1,4 +1,7 @@
 <?php
+
+namespace JustGivingClient;
+
 include_once 'Base.php';
 class CurrencyTest extends Base {
     public function testGetValidCurrencies_ReturnCurrencies() {

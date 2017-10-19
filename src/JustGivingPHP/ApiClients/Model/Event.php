@@ -1,4 +1,5 @@
-<?php
+<?php namespace JustGivingClient;
+
 class Event
 {
 	public $name;

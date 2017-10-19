@@ -1,4 +1,7 @@
 <?php
+
+namespace JustGivingClient;
+
 include_once 'Base.php';
 class SearchTest extends Base {
     public function testCharitySearch_KeywordWithKnownResults_SearchResultsPresent() {
