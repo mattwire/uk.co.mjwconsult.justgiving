@@ -33,12 +33,6 @@
   {/if}
   <div class="clear">&nbsp;</div>
 
-  <h3>JustGiving Test API Status</h3>
-  {if $testApiStatus}<div style="color: green">OK</div>
-  {else}<div style="color: red">ERROR</div>
-  {/if}
-  <div class="clear">&nbsp;</div>
-
   <h3>Configuration</h3>
   <table class="form-layout-compressed"><tbody>
     {foreach from=$elementNames item=elementName}

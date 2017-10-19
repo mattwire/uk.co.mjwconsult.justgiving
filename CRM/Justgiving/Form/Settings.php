@@ -13,21 +13,12 @@ class CRM_Justgiving_Form_Settings extends CRM_Core_Form {
     parent::buildQuickForm();
 
     // Test API credentials
-    $testApiStatus = FALSE;
     $apiStatus = FALSE;
-
-    $response = CRM_Justgiving_BAO_FundraisingPage::suggestPageName('test', TRUE);
-    if (!empty($response['names']) && count ($response['names'] > 0)) {
-      $testApiStatus = TRUE;
-    }
-    $this->assign('testApiStatus', $testApiStatus);
-
-    $response = CRM_Justgiving_BAO_FundraisingPage::suggestPageName('test', FALSE);
-    if (!empty($response['names']) && count ($response['names'] > 0)) {
+    $response = CRM_Justgiving_BAO_FundraisingPage::suggestPageName('test');
+    if (!empty($response['values']) && count ($response['values'] > 0)) {
       $apiStatus = TRUE;
     }
     $this->assign('apiStatus', $apiStatus);
-
 
     CRM_Utils_System::setTitle(CRM_Justgiving_Settings::TITLE . ' - ' . E::ts('Settings'));
 
