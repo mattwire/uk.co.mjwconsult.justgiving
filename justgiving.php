@@ -155,3 +155,17 @@ function justgiving_civicrm_navigationMenu(&$menu) {
 
   _justgiving_civix_navigationMenu($menu);
 }
+
+/**
+ * Implements hook_civicrm_entityTypes.
+ *
+ * @param array $entityTypes
+ *   Registered entity types.
+ */
+function justgiving_civicrm_entityTypes(&$entityTypes) {
+  $entityTypes['CRM_Justgiving_DAO_Fundraisingpage'] = array (
+    'name' => 'JustgivingFundraisingpage',
+    'class' => 'CRM_Justgiving_DAO_Fundraisingpage',
+    'table' => 'civicrm_justgiving_fundraising_page',
+  );
+}

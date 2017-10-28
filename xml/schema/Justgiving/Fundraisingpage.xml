@@ -2,7 +2,7 @@
 
 <table>
   <base>CRM/Justgiving</base>
-  <class>FundraisingPage</class>
+  <class>Fundraisingpage</class>
   <name>civicrm_justgiving_fundraising_page</name>
   <comment>Justgiving Fundraising Page</comment>
   <add>4.7</add>
@@ -19,6 +19,13 @@
     <name>id</name>
     <autoincrement>true</autoincrement>
   </primaryKey>
+
+  <field>
+    <name>page_id</name>
+    <type>int unsigned</type>
+    <comment>Justgiving Fundraising Page ID</comment>
+    <add>4.7</add>
+  </field>
 
   <field>
     <name>charity_id</name>
@@ -75,7 +82,7 @@
   <field>
     <name>charity_opt_in</name>
     <title>Charity Opt-in</title>
-    <type>tinyint</type>
+    <type>int</type>
     <length>1</length>
     <comment>The charityOptIn argument allows you to indicate whether the user wishes to opt in to receive communications from the charity the fundraising page is for. (Required)</comment>
     <add>4.7</add>
@@ -127,7 +134,7 @@
   <field>
     <name>charity_funded</name>
     <title>Charity Funded</title>
-    <type>tinyint</type>
+    <type>int</type>
     <length>1</length>
     <comment>The charityFunded argument specifies whether the charity is contributing in some way to the fundraising, which can affect Gift Aid. For more information about how Gift Aid works http://bit.ly/cZfY1R (Required)</comment>
     <add>4.7</add>
@@ -199,6 +206,15 @@
     <length>4</length>
     <default>'GBP'</default>
     <comment>Must be a valid ISO currency code. Will default to GBP if omitted. For a list of valid codes, use the Currency API.</comment>
+    <add>4.7</add>
+  </field>
+
+  <field>
+    <name>error</name>
+    <title>error</title>
+    <type>varchar</type>
+    <length>512</length>
+    <comment>Error message on page creation</comment>
     <add>4.7</add>
   </field>
 

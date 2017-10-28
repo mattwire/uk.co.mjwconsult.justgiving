@@ -14,7 +14,7 @@ class CRM_Justgiving_Form_Settings extends CRM_Core_Form {
 
     // Test API credentials
     $apiStatus = FALSE;
-    $response = CRM_Justgiving_BAO_FundraisingPage::suggestPageName('test');
+    $response = CRM_Justgiving_BAO_Fundraisingpage::suggestPageName('test');
     if (!empty($response['values']) && count ($response['values'] > 0)) {
       $apiStatus = TRUE;
     }

@@ -4,8 +4,8 @@
 return array (
   0 => 
   array (
-    'name' => 'JustgivingFundraisingPage',
-    'class' => 'CRM_Justgiving_DAO_FundraisingPage',
+    'name' => 'JustgivingFundraisingpage',
+    'class' => 'CRM_Justgiving_DAO_Fundraisingpage',
     'table' => 'civicrm_justgiving_fundraising_page',
   ),
 );
