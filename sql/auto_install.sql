@@ -26,7 +26,7 @@ CREATE TABLE `civicrm_justgiving_fundraising_page` (
      `cause_id` int unsigned    COMMENT 'The causeId argument specifies the cause you are creating a fundraising page for. (Optional)',
      `company_appeal_id` int unsigned    COMMENT 'The companyAppealId argument specifies the company appeal you are creating a fundraising page for. (Optional)',
      `expiry_date` timestamp    COMMENT 'The date the page should expire. This is ignored if you are creating a fundraising page for a pre-defined event.',
-     `page_story` varchar(255)    COMMENT 'The Page Story.',
+     `page_story` text    COMMENT 'The Page Story.',
      `page_summary_what` varchar(50)    COMMENT 'The \'I\'m doing action X\' part of the fundraising page summary. (Optional). 50 characters max.',
      `page_summary_why` varchar(50)    COMMENT 'The \'reason Z\' part of the fundraising page summary. (Optional). 50 characters max.',
      `team_id` int unsigned    COMMENT 'The teamId argument specifies the team to which the fundraising page will be associated with.',

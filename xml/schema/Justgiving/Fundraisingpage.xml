@@ -114,15 +114,6 @@
   </field>
 
   <field>
-    <name>event_name</name>
-    <title>Event Name</title>
-    <type>varchar</type>
-    <length>50</length>
-    <comment>The eventName argument allows you to specify a name for the event. Required for event activity types (i.e: Birthday, Wedding, OtherCelebration, InMemory).</comment>
-    <add>4.7</add>
-  </field>
-
-  <field>
     <name>attribution</name>
     <title>Attribution</title>
     <type>varchar</type>
@@ -167,8 +158,7 @@
   <field>
     <name>page_story</name>
     <title>pageStory</title>
-    <type>varchar</type>
-    <length>255</length>
+    <type>text</type>
     <comment>The Page Story.</comment>
     <add>4.7</add>
   </field>
