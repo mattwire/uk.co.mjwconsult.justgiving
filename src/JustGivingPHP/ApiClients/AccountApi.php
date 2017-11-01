@@ -89,7 +89,7 @@ class AccountApi extends ClientBase
 		}
 		else		
 		{
-			throw new Exception('IsEmailRegistered returned a status code it wasn\'t expecting. Returned ' . $httpInfo['http_code']);
+			throw new \Exception('IsEmailRegistered returned a status code it wasn\'t expecting. Returned ' . $httpInfo['http_code']);
 		}
 	}
 
@@ -119,6 +119,22 @@ class AccountApi extends ClientBase
 		$json = $this->curlWrapper->PostAndGetResponse($url, $this->BuildAuthenticationValue(), $payload);	
 		return json_decode($json); 			
 	}
+
+  public function IsValidV2($validateAccountRequest){
+	  $httpResponse = new HTTPResponse();
+    $locationFormat = $this->Parent->RootDomain . "{apiKey}/v{apiVersion}/account/validate";
+    $url = $this->BuildUrl($locationFormat);
+    $payload = json_encode($validateAccountRequest);
+    $result = $this->curlWrapper->PostV2($url, $this->BuildAuthenticationValue(), $payload);
+    if($result->httpStatusCode == 200)
+    {
+      return true;
+    }
+    else
+    {
+      return false;
+    }
+  }
 
 	public function ChangePassword($changePasswordRequest)
 	{
