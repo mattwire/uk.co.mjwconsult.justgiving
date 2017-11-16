@@ -18,7 +18,7 @@ class CampaignApi extends ClientBase
 	{
 		$locationFormat = $this->Parent->RootDomain . "{apiKey}/v{apiVersion}/campaigns/". $charityName ."/". $campaignName;
 		$url = $this->BuildUrl($locationFormat);
-		$json = $this->curlWrapper->Get($url, $this->BuildAuthenticationValue());
+		$json = $this->curlWrapper->Get($url, $this->BuildAuthenticationValue(), $this->Parent->ApiKey);
 		return json_decode($json);
 	}
 	public function RetrieveV2($charityName, $campaignName)
@@ -26,7 +26,7 @@ class CampaignApi extends ClientBase
 		$httpResponse = new HTTPResponse();
 		$locationFormat = $this->Parent->RootDomain . "{apiKey}/v{apiVersion}/campaigns/". $charityName ."/". $campaignName;
 		$url = $this->BuildUrl($locationFormat);
-		$result = $this->curlWrapper->GetV2($url, $this->BuildAuthenticationValue());
+		$result = $this->curlWrapper->GetV2($url, $this->BuildAuthenticationValue(), $this->Parent->ApiKey);
 		$httpResponse->bodyResponse = json_decode($result->bodyResponse);
 		$httpResponse->httpStatusCode = $result->httpStatusCode;	
 		return $httpResponse;
@@ -36,7 +36,7 @@ class CampaignApi extends ClientBase
 		$locationFormat = $this->Parent->RootDomain . "{apiKey}/v{apiVersion}/campaigns";
 		$url = $this->BuildUrl($locationFormat);
 		$payload = json_encode($campaignCreationRequest);
-		$json = $this->curlWrapper->Put($url, $this->BuildAuthenticationValue(), $payload);
+		$json = $this->curlWrapper->Put($url, $this->BuildAuthenticationValue(), $this->Parent->ApiKey, $payload);
 		return json_decode($json);
 	}
 	public function CreateV2($campaignCreationRequest)
@@ -45,7 +45,7 @@ class CampaignApi extends ClientBase
 		$locationFormat = $this->Parent->RootDomain . "{apiKey}/v{apiVersion}/campaigns";
 		$url = $this->BuildUrl($locationFormat);
 		$payload = json_encode($campaignCreationRequest);
-		$result = $this->curlWrapper->PutV2($url, $this->BuildAuthenticationValue(), $payload);
+		$result = $this->curlWrapper->PutV2($url, $this->BuildAuthenticationValue(), $this->Parent->ApiKey, $payload);
 		$httpResponse->bodyResponse = json_decode($result->bodyResponse);
 		$httpResponse->httpStatusCode = $result->httpStatusCode;	
 		return $httpResponse;
@@ -55,7 +55,7 @@ class CampaignApi extends ClientBase
 		$httpResponse = new HTTPResponse();
 		$locationFormat = $this->Parent->RootDomain . "{apiKey}/v{apiVersion}/campaigns/". $charityShortName ."/". $campaignShortUrl . "/pages";
 		$url = $this->BuildUrl($locationFormat);
-		$result = $this->curlWrapper->GetV2($url, $this->BuildAuthenticationValue());
+		$result = $this->curlWrapper->GetV2($url, $this->BuildAuthenticationValue(), $this->Parent->ApiKey);
 		$httpResponse->bodyResponse = json_decode($result->bodyResponse);
 		$httpResponse->httpStatusCode = $result->httpStatusCode;	
 		return $httpResponse;
@@ -65,7 +65,7 @@ class CampaignApi extends ClientBase
 		$httpResponse = new HTTPResponse();
 		$locationFormat = $this->Parent->RootDomain . "{apiKey}/v{apiVersion}/campaigns/". $charityId;
 		$url = $this->BuildUrl($locationFormat);
-		$result = $this->curlWrapper->GetV2($url, $this->BuildAuthenticationValue());
+		$result = $this->curlWrapper->GetV2($url, $this->BuildAuthenticationValue(), $this->Parent->ApiKey);
 		$httpResponse->bodyResponse = json_decode($result->bodyResponse);
 		$httpResponse->httpStatusCode = $result->httpStatusCode;	
 		return $httpResponse;
@@ -76,7 +76,7 @@ class CampaignApi extends ClientBase
 		$locationFormat = $this->Parent->RootDomain . "{apiKey}/v{apiVersion}/campaigns";
 		$url = $this->BuildUrl($locationFormat);
 		$payload = json_encode($registerCampaignFundraisingPageRequest);
-		$result = $this->curlWrapper->PostV2($url, $this->BuildAuthenticationValue(), $payload);
+		$result = $this->curlWrapper->PostV2($url, $this->BuildAuthenticationValue(), $this->Parent->ApiKey, $payload);
 		$httpResponse->bodyResponse = json_decode($result->bodyResponse);
 		$httpResponse->httpStatusCode = $result->httpStatusCode;	
 		return $httpResponse;

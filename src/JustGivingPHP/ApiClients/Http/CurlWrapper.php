@@ -17,7 +17,7 @@ class CurlWrapper
 		}
 	}
 
-	public function GetV2($url, $base64Credentials = "")
+	public function GetV2($url, $base64Credentials = "", $apiKey)
 	{
 		$ch = curl_init();
 		$httpResponse = new HTTPRawResponse();
@@ -26,7 +26,7 @@ class CurlWrapper
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);		
 		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
 
-		$this->SetCredentials($ch, $base64Credentials);
+		$this->SetCredentials($ch, $base64Credentials, $apiKey);
 		
 		$buffer = curl_exec($ch);
 		$info = curl_getinfo($ch);
@@ -37,7 +37,7 @@ class CurlWrapper
 		return $httpResponse;
 	}
 	
-	public function Get($url, $base64Credentials = "")
+	public function Get($url, $base64Credentials = "", $apiKey)
 	{
 		$ch = curl_init();	
 
@@ -45,7 +45,7 @@ class CurlWrapper
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);		
 		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
 
-		$this->SetCredentials($ch, $base64Credentials);
+		$this->SetCredentials($ch, $base64Credentials, $apiKey);
 		
 		$buffer = curl_exec($ch);
 		$info = curl_getinfo($ch);
@@ -53,7 +53,7 @@ class CurlWrapper
 		return $buffer;
 	}
 
-	public function PutV2($url, $base64Credentials = "", $payload)
+	public function PutV2($url, $base64Credentials = "", $apiKey, $payload)
 	{	
 		$httpResponse = new HTTPRawResponse();
 		$fh = fopen('php://temp', 'r+');
@@ -68,7 +68,7 @@ class CurlWrapper
 		curl_setopt($ch, CURLOPT_INFILE, $fh);
 		curl_setopt($ch, CURLOPT_INFILESIZE, strlen($payload));
 		
-		$this->SetCredentials($ch, $base64Credentials);
+		$this->SetCredentials($ch, $base64Credentials, $apiKey);
 		
 		$buffer = curl_exec($ch);
 		$info = curl_getinfo($ch);
@@ -80,7 +80,7 @@ class CurlWrapper
 		
 	}	
 	
-	public function Put($url, $base64Credentials = "", $payload, $getHttpStatus = false)
+	public function Put($url, $base64Credentials = "", $apiKey, $payload, $getHttpStatus = false)
 	{	
 		$fh = fopen('php://temp', 'r+');
 		fwrite($fh, $payload);
@@ -94,7 +94,7 @@ class CurlWrapper
 		curl_setopt($ch, CURLOPT_INFILE, $fh);
 		curl_setopt($ch, CURLOPT_INFILESIZE, strlen($payload));
 		
-		$this->SetCredentials($ch, $base64Credentials);
+		$this->SetCredentials($ch, $base64Credentials, $apiKey);
 		
 		$buffer = curl_exec($ch);
 		$info = curl_getinfo($ch);
@@ -134,7 +134,7 @@ class CurlWrapper
 		return $info;
 	}
 
-	public function HeadV2($url, $base64Credentials = "")
+	public function HeadV2($url, $base64Credentials = "", $apiKey)
 	{
 		$ch = curl_init();
 		$httpResponse = new HTTPRawResponse();
@@ -144,7 +144,7 @@ class CurlWrapper
 		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
 		curl_setopt($ch, CURLOPT_NOBODY, true);
 		
-		$this->SetCredentials($ch, $base64Credentials);
+		$this->SetCredentials($ch, $base64Credentials, $apiKey);
 		
 		$buffer = curl_exec($ch);
 		$info = curl_getinfo($ch);		
@@ -155,7 +155,7 @@ class CurlWrapper
 		return $httpResponse;		
 	}	
 	
-	public function Head($url, $base64Credentials = "")
+	public function Head($url, $base64Credentials = "", $apiKey)
 	{
 		$ch = curl_init();
 		curl_setopt($ch, CURLOPT_URL, $url);
@@ -163,7 +163,7 @@ class CurlWrapper
 		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
 		curl_setopt($ch, CURLOPT_NOBODY, true);
 		
-		$this->SetCredentials($ch, $base64Credentials);
+		$this->SetCredentials($ch, $base64Credentials, $apiKey);
 		
 		$buffer = curl_exec($ch);
 		$info = curl_getinfo($ch);		
@@ -172,7 +172,7 @@ class CurlWrapper
 		return $info;
 	}	
 	
-	public function Post($url, $base64Credentials = "", $payload, $contentType="application/json")
+	public function Post($url, $base64Credentials = "", $apiKey, $payload, $contentType="application/json")
 	{
 		$ch = curl_init();
 		curl_setopt($ch, CURLOPT_URL, $url);
@@ -181,7 +181,7 @@ class CurlWrapper
 		curl_setopt($ch, CURLOPT_POST, true);
 		curl_setopt($ch, CURLOPT_POSTFIELDS, $payload);
 		
-		$this->SetCredentials($ch, $base64Credentials, $contentType);
+		$this->SetCredentials($ch, $base64Credentials, $apiKey, $contentType);
 		
 		$buffer = curl_exec($ch);
 		$info = curl_getinfo($ch);
@@ -189,7 +189,7 @@ class CurlWrapper
 		return $info;
 	}
 
-	public function PostV2($url, $base64Credentials = "", $payload, $contentType="application/json")
+	public function PostV2($url, $base64Credentials = "", $apiKey, $payload, $contentType="application/json")
 	{
 		$httpResponse = new HTTPRawResponse();
 		$ch = curl_init();
@@ -199,7 +199,7 @@ class CurlWrapper
 		curl_setopt($ch, CURLOPT_POST, true);
 		curl_setopt($ch, CURLOPT_POSTFIELDS, $payload);
 
-		$this->SetCredentials($ch, $base64Credentials, $contentType);
+		$this->SetCredentials($ch, $base64Credentials, $apiKey, $contentType);
 
 		$buffer = curl_exec($ch);
 		$info = curl_getinfo($ch);
@@ -211,7 +211,7 @@ class CurlWrapper
 
 	}	
 
-	public function PostAndGetResponse($url, $base64Credentials = "", $payload, $contentType="application/json")
+	public function PostAndGetResponse($url, $base64Credentials = "", $apiKey, $payload, $contentType="application/json")
 	{
 		$ch = curl_init();
 		curl_setopt($ch, CURLOPT_URL, $url);
@@ -220,7 +220,7 @@ class CurlWrapper
 		curl_setopt($ch, CURLOPT_POST, true);
 		curl_setopt($ch, CURLOPT_POSTFIELDS, $payload);
 		
-		$this->SetCredentials($ch, $base64Credentials, $contentType);
+		$this->SetCredentials($ch, $base64Credentials, $apiKey, $contentType);
 		
 		$buffer = curl_exec($ch);
 		$info = curl_getinfo($ch);
@@ -228,7 +228,7 @@ class CurlWrapper
 		return $buffer;
 	}
 
-	public function Delete($url, $base64Credentials = "", $contentType="application/json")
+	public function Delete($url, $base64Credentials = "", $apiKey, $contentType="application/json")
 	{
 		$ch = curl_init();
 		curl_setopt($ch, CURLOPT_URL, $url);
@@ -236,22 +236,24 @@ class CurlWrapper
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 		curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'DELETE');
 
-		$this->SetCredentials($ch, $base64Credentials, $contentType);
+		$this->SetCredentials($ch, $base64Credentials, $apiKey, $contentType);
 		$buffer = curl_exec($ch);
 		$info = curl_getinfo($ch);
 		curl_close($ch);
 		return $info;
 	}	
 	
-	private function SetCredentials($ch, $base64Credentials = "", $contentType="application/json")
-	{		
-		if($base64Credentials != null && $base64Credentials != "")
-		{			
-			curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-type: '.$contentType, 'Accept: '.$contentType, 'Authorize: Basic '.$base64Credentials, 'Authorization: Basic '.$base64Credentials ));
-		}
-		else
+	private function SetCredentials($ch, $base64Credentials = "", $apiKey, $contentType="application/json")
+	{
+	  $httpHeaders = array('Content-type: ' . $contentType, 'Accept: ' . $contentType, 'x-api-key: ' . $apiKey);
+		if ($base64Credentials != null && $base64Credentials != "")
 		{
-			curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-type: '.$contentType, 'Accept: '.$contentType));
+		  $httpHeaders[] = 'Authorize: Basic '.$base64Credentials;
+		  $httpHeaders[] = 'Authorization: Basic '.$base64Credentials;
+		  curl_setopt($ch, CURLOPT_HTTPHEADER, $httpHeaders);
+		}
+		else {
+			curl_setopt($ch, CURLOPT_HTTPHEADER, $httpHeaders);
 		}
 	}
 }

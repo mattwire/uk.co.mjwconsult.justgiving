@@ -19,7 +19,7 @@ class AccountApi extends ClientBase
 		$httpResponse = new HTTPResponse();
 		$locationFormat = $this->Parent->RootDomain . "{apiKey}/v{apiVersion}/account";
 		$url = $this->BuildUrl($locationFormat);
-		$result = $this->curlWrapper->GetV2($url, $this->BuildAuthenticationValue());
+		$result = $this->curlWrapper->GetV2($url, $this->BuildAuthenticationValue(), $this->Parent->ApiKey);
 		$httpResponse->bodyResponse = json_decode($result->bodyResponse);
 		$httpResponse->httpStatusCode = $result->httpStatusCode;	
 		return $httpResponse;
@@ -29,7 +29,7 @@ class AccountApi extends ClientBase
 	{
 		$locationFormat = $this->Parent->RootDomain . "{apiKey}/v{apiVersion}/account";
 		$url = $this->BuildUrl($locationFormat);
-		$json = $this->curlWrapper->Get($url, $this->BuildAuthenticationValue());		
+		$json = $this->curlWrapper->Get($url, $this->BuildAuthenticationValue(), $this->Parent->ApiKey);
 		return json_decode($json);
 	}
 
@@ -39,7 +39,7 @@ class AccountApi extends ClientBase
 		$locationFormat = $this->Parent->RootDomain . "{apiKey}/v{apiVersion}/account";
 		$url = $this->BuildUrl($locationFormat);
 		$payload = json_encode($createAccountRequest);		
-		$result = $this->curlWrapper->PutV2($url, $this->BuildAuthenticationValue(), $payload);
+		$result = $this->curlWrapper->PutV2($url, $this->BuildAuthenticationValue(), $this->Parent->ApiKey, $payload);
 		$httpResponse->bodyResponse = json_decode($result->bodyResponse);
 		$httpResponse->httpStatusCode = $result->httpStatusCode;	
 		return $httpResponse;
@@ -50,7 +50,7 @@ class AccountApi extends ClientBase
 		$locationFormat = $this->Parent->RootDomain . "{apiKey}/v{apiVersion}/account";
 		$url = $this->BuildUrl($locationFormat);
 		$payload = json_encode($createAccountRequest);		
-		$json = $this->curlWrapper->Put($url, $this->BuildAuthenticationValue(), $payload);
+		$json = $this->curlWrapper->Put($url, $this->BuildAuthenticationValue(), $this->Parent->ApiKey, $payload);
 		return json_decode($json); 
 	}
 	
@@ -58,7 +58,7 @@ class AccountApi extends ClientBase
 	{		
 		$locationFormat = $this->Parent->RootDomain . "{apiKey}/v{apiVersion}/account/" . $email . "/pages";
 		$url = $this->BuildUrl($locationFormat);		
-		$json = $this->curlWrapper->Get($url, $this->BuildAuthenticationValue());
+		$json = $this->curlWrapper->Get($url, $this->BuildAuthenticationValue(), $this->Parent->ApiKey);
 		return json_decode($json); 
 	}
 
@@ -67,7 +67,7 @@ class AccountApi extends ClientBase
 		$httpResponse = new HTTPResponse();
 		$locationFormat = $this->Parent->RootDomain . "{apiKey}/v{apiVersion}/account/" . $email;
 		$url = $this->BuildUrl($locationFormat);		
-		$result = $this->curlWrapper->HeadV2($url, $this->BuildAuthenticationValue());
+		$result = $this->curlWrapper->HeadV2($url, $this->BuildAuthenticationValue(), $this->Parent->ApiKey);
 		$httpResponse->bodyResponse = json_decode($result->bodyResponse);
 		$httpResponse->httpStatusCode = $result->httpStatusCode;	
 		return $httpResponse;
@@ -77,7 +77,7 @@ class AccountApi extends ClientBase
 	{
 		$locationFormat = $this->Parent->RootDomain . "{apiKey}/v{apiVersion}/account/" . $email;
 		$url = $this->BuildUrl($locationFormat);		
-		$httpInfo = $this->curlWrapper->Head($url, $this->BuildAuthenticationValue());		
+		$httpInfo = $this->curlWrapper->Head($url, $this->BuildAuthenticationValue(), $this->Parent->ApiKey);
 		
 		if($httpInfo['http_code'] == 200)
 		{
@@ -98,7 +98,7 @@ class AccountApi extends ClientBase
 		$httpResponse = new HTTPResponse();
 		$locationFormat = $this->Parent->RootDomain . "{apiKey}/v{apiVersion}/account/" . $email . "/requestpasswordreminder";
 		$url = $this->BuildUrl($locationFormat);		
-		$result = $this->curlWrapper->GetV2($url, $this->BuildAuthenticationValue());
+		$result = $this->curlWrapper->GetV2($url, $this->BuildAuthenticationValue(), $this->Parent->ApiKey);
 		$httpResponse->bodyResponse = json_decode($result->bodyResponse);
 		$httpResponse->httpStatusCode = $result->httpStatusCode;	
 		return $httpResponse;
@@ -108,7 +108,7 @@ class AccountApi extends ClientBase
 	{
 		$locationFormat = $this->Parent->RootDomain . "{apiKey}/v{apiVersion}/account/" . $email . "/requestpasswordreminder";
 		$url = $this->BuildUrl($locationFormat);		
-		$json = $this->curlWrapper->Get($url, $this->BuildAuthenticationValue());
+		$json = $this->curlWrapper->Get($url, $this->BuildAuthenticationValue(), $this->Parent->ApiKey);
 		return json_decode($json); 		
 	}
 
@@ -116,7 +116,7 @@ class AccountApi extends ClientBase
 		$locationFormat = $this->Parent->RootDomain . "{apiKey}/v{apiVersion}/account/validate";
 		$url = $this->BuildUrl($locationFormat);			
 		$payload = json_encode($validateAccountRequest);		
-		$json = $this->curlWrapper->PostAndGetResponse($url, $this->BuildAuthenticationValue(), $payload);	
+		$json = $this->curlWrapper->PostAndGetResponse($url, $this->BuildAuthenticationValue(), $this->Parent->ApiKey, $payload);
 		return json_decode($json); 			
 	}
 
@@ -125,7 +125,7 @@ class AccountApi extends ClientBase
     $locationFormat = $this->Parent->RootDomain . "{apiKey}/v{apiVersion}/account/validate";
     $url = $this->BuildUrl($locationFormat);
     $payload = json_encode($validateAccountRequest);
-    $result = $this->curlWrapper->PostV2($url, $this->BuildAuthenticationValue(), $payload);
+    $result = $this->curlWrapper->PostV2($url, $this->BuildAuthenticationValue(), $this->Parent->ApiKey, $payload);
     if($result->httpStatusCode == 200)
     {
       return true;
@@ -141,7 +141,7 @@ class AccountApi extends ClientBase
 		$locationFormat = $this->Parent->RootDomain . "{apiKey}/v{apiVersion}/account/changePassword";
 		$url = $this->BuildUrl($locationFormat);
 		$payload = json_encode($changePasswordRequest);
-		$json = $this->curlWrapper->PostAndGetResponse($url, "", $payload);
+		$json = $this->curlWrapper->PostAndGetResponse($url, "", $this->Parent->ApiKey, $payload);
 		return json_decode($json);
 	}
 
@@ -149,7 +149,7 @@ class AccountApi extends ClientBase
 	{
 		$locationFormat = $this->Parent->RootDomain . "{apiKey}/v{apiVersion}/account/donations";
 		$url = $this->BuildUrl($locationFormat);
-		$json = $this->curlWrapper->Get($url, $this->BuildAuthenticationValue());
+		$json = $this->curlWrapper->Get($url, $this->BuildAuthenticationValue(), $this->Parent->ApiKey);
 		return json_decode($json);
 	}
 
@@ -159,7 +159,7 @@ class AccountApi extends ClientBase
 		{
 			$locationFormat = $this->Parent->RootDomain . "{apiKey}/v{apiVersion}/account/donations?charityId=". $charityId;
 			$url = $this->BuildUrl($locationFormat);
-			$json = $this->curlWrapper->Get($url, $this->BuildAuthenticationValue());
+			$json = $this->curlWrapper->Get($url, $this->BuildAuthenticationValue(), $this->Parent->ApiKey);
 			return json_decode($json);			
 		}
 		else
@@ -172,7 +172,7 @@ class AccountApi extends ClientBase
 	{
 		$locationFormat = $this->Parent->RootDomain . "{apiKey}/v{apiVersion}/account/rating";
 		$url = $this->BuildUrl($locationFormat);
-		$json = $this->curlWrapper->Get($url, $this->BuildAuthenticationValue());
+		$json = $this->curlWrapper->Get($url, $this->BuildAuthenticationValue(), $this->Parent->ApiKey);
 		return json_decode($json);	
 	}
 
@@ -181,7 +181,7 @@ class AccountApi extends ClientBase
 		$locationFormat = $this->Parent->RootDomain . "{apiKey}/v{apiVersion}/account/rating";
 		$url = $this->BuildUrl($locationFormat);
 		$payload = json_encode($rateContentRequest);
-		$json = $this->curlWrapper->Post($url, $this->BuildAuthenticationValue(), $payload);
+		$json = $this->curlWrapper->Post($url, $this->BuildAuthenticationValue(), $this->Parent->ApiKey, $payload);
 		if($json['http_code'] == 201)
 		{
 			return true;
@@ -196,7 +196,7 @@ class AccountApi extends ClientBase
 	{
 		$locationFormat = $this->Parent->RootDomain . "{apiKey}/v{apiVersion}/account/feed";
 		$url = $this->BuildUrl($locationFormat);
-		$json = $this->curlWrapper->Get($url, $this->BuildAuthenticationValue());
+		$json = $this->curlWrapper->Get($url, $this->BuildAuthenticationValue(), $this->Parent->ApiKey);
 		return json_decode($json);
 	}
 
@@ -204,7 +204,7 @@ class AccountApi extends ClientBase
 	{
 		$locationFormat = $this->Parent->RootDomain . "{apiKey}/v{apiVersion}/account/interest";
 		$url = $this->BuildUrl($locationFormat);
-		$json = $this->curlWrapper->Get($url, $this->BuildAuthenticationValue());
+		$json = $this->curlWrapper->Get($url, $this->BuildAuthenticationValue(), $this->Parent->ApiKey);
 		return json_decode($json);	 
 	}
 
@@ -213,7 +213,7 @@ class AccountApi extends ClientBase
 		$locationFormat = $this->Parent->RootDomain . "{apiKey}/v{apiVersion}/account/interest";
 		$url = $this->BuildUrl($locationFormat);
 		$payload = json_encode($addInterestRequest);
-		$json = $this->curlWrapper->Post($url, $this->BuildAuthenticationValue(), $payload);
+		$json = $this->curlWrapper->Post($url, $this->BuildAuthenticationValue(), $this->Parent->ApiKey, $payload);
 		if($json['http_code'] == 201)
 		{
 			return true;
@@ -229,7 +229,7 @@ class AccountApi extends ClientBase
 		$locationFormat = $this->Parent->RootDomain . "{apiKey}/v{apiVersion}/account/interest";
 		$url = $this->BuildUrl($locationFormat);
 		$payload = json_encode($replaceInterestRequest);
-		$json = $this->curlWrapper->Put($url, $this->BuildAuthenticationValue(), $payload, true);
+		$json = $this->curlWrapper->Put($url, $this->BuildAuthenticationValue(), $this->Parent->ApiKey, $payload, true);
 		if($json['http_code'] == 201)
 		{
 			return true;
