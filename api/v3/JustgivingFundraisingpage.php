@@ -118,3 +118,35 @@ function _civicrm_api3_justgiving_fundraisingpage_suggestname_spec(&$spec) {
   $spec['preferred_name']['api.required'] = 1;
   $spec['preferred_name']['title'] = 'Preferred Name';
 }
+
+function civicrm_api3_justgiving_fundraisingpage_getpages($params) {
+  $jgClient = CRM_Justgiving_Client::singleton();
+  $response = $jgClient->client()->Page->ListAll();
+  if ($response->httpStatusCode !== 200) {
+    $err = !empty($response->bodyResponse->error->desc) ? $response->bodyResponse->error->desc : 'Unknown error';
+    $err .= ' (' . $response->httpStatusCode . ')';
+    $params['error'] = 'Unable to get Justgiving pages. ' . $err;
+  }
+  $params['pages'] = $response->bodyResponse;
+
+  return $params;
+}
+
+function _civicrm_api3_justgiving_fundraisingpage_getdonations_spec(&$spec) {
+  $spec['page_short_name']['api.required'] = 1;
+  $spec['page_short_name']['title'] = 'Page Short Name';
+  $spec['page_short_name']['type'] = CRM_Utils_Type::T_STRING;
+}
+
+function civicrm_api3_justgiving_fundraisingpage_getdonations($params) {
+  $jgClient = CRM_Justgiving_Client::singleton();
+  $response = $jgClient->client()->Page->RetrieveDonationsForPage($params['page_short_name']);
+  if ($response->httpStatusCode !== 200) {
+    $err = !empty($response->bodyResponse->error->desc) ? $response->bodyResponse->error->desc : 'Unknown error';
+    $err .= ' (' . $response->httpStatusCode . ')';
+    $params['error'] = 'Unable to get Justgiving page donations. ' . $err;
+  }
+  $params['donations'] = $response->bodyResponse;
+
+  return $params;
+}
