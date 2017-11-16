@@ -35,14 +35,33 @@ function civicrm_api3_justgiving_event_create($params) {
   $event->eventType = $params['event_type'];
 
   $jgClient = CRM_Justgiving_Client::singleton();
-  $eventTypes = $jgClient->client(TRUE)->Event->GetTypes();
-  $eventResult = $jgClient->client(TRUE)->Event->Create($event);
+  $eventTypes = $jgClient->client()->Event->GetTypes();
+  $eventResult = $jgClient->client()->Event->Create($event);
 
   return $eventResult;
 }
 
 function civicrm_api3_justgiving_event_gettypes($params) {
   $jgClient = CRM_Justgiving_Client::singleton();
-  $eventTypes = $jgClient->client(TRUE)->Event->GetTypes();
+  $eventTypes = $jgClient->client()->Event->GetTypes();
   return $eventTypes;
+}
+
+function _civicrm_api3_justgiving_event_getpages_spec(&$spec) {
+  $spec['event_id']['api.required'] = 1;
+  $spec['event_id']['title'] = 'Event ID';
+  $spec['event_id']['type'] = CRM_Utils_Type::T_INT;
+}
+
+function civicrm_api3_justgiving_event_getpages($params) {
+  $jgClient = CRM_Justgiving_Client::singleton();
+  $response = $jgClient->client()->Event->RetrieveV2($params['event_id']);
+  if ($response->httpStatusCode !== 200) {
+    $err = !empty($response->bodyResponse->error->desc) ? $response->bodyResponse->error->desc : 'Unknown error';
+    $err .= ' (' . $response->httpStatusCode . ')';
+    $params['error'] = 'Unable to get Justgiving pages. ' . $err;
+  }
+  $params['pages'] = $response->bodyResponse;
+
+  return $params;
 }
