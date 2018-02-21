@@ -43,11 +43,9 @@ class CRM_Justgiving_BAO_Fundraisingpage extends CRM_Justgiving_DAO_Fundraisingp
     $jgClient = CRM_Justgiving_Client::singleton()->client($isTest);
 
     if ($jgClient) {
-      if (!$jgClient->Page->IsShortNameRegistered($preferredName)) {
-        // If page name is available don't suggest alternatives
-        return array('values' => array($preferredName));
-      }
+      // This will always return the (filtered) preferredName as first entry if it is available
       $names = $jgClient->Page->SuggestPageShortNames($preferredName);
+      // if (!$jgClient->Page->IsShortNameRegistered($preferredName)) {
       return array('values' => $names['Names']);
     }
   }
